@@ -12,4 +12,7 @@ public record TurnstileValidationRequest
 
     [JsonPropertyName("remoteip")]
     public string? RemoteIp { get; set; }
+
+    [JsonPropertyName("idempotency_key")]
+    public string? IdempotencyKey { get; set; }
 }

@@ -9,6 +9,8 @@ using Soenneker.Cloudflare.Turnstile.Validator.Requests;
 using Soenneker.Cloudflare.Turnstile.Validator.Responses;
 using Soenneker.Extensions.Configuration;
 using Soenneker.Extensions.HttpClient;
+using System;
+using Soenneker.Extensions.ValueTask;
 
 namespace Soenneker.Cloudflare.Turnstile.Validator;
 
@@ -27,7 +29,7 @@ public class TurnstileValidator : Validators.Validator.Validator, ITurnstileVali
 
     public async ValueTask<bool> Validate(string token, string? remoteIp = null, CancellationToken cancellationToken = default)
     {
-        TurnstileValidationResponse? response = await GetResponse(token, remoteIp, cancellationToken);
+        TurnstileValidationResponse? response = await GetResponse(token, remoteIp, cancellationToken).NoSync();
 
         if (response is not {Success: true})
             return false;
@@ -37,16 +39,19 @@ public class TurnstileValidator : Validators.Validator.Validator, ITurnstileVali
 
     public async ValueTask<TurnstileValidationResponse?> GetResponse(string token, string? remoteIp = null, CancellationToken cancellationToken = default)
     {
-        HttpClient client = await _turnstileClient.Get();
+        var idempotencyKey = Guid.NewGuid().ToString();
+
+        HttpClient client = await _turnstileClient.Get().NoSync();
 
         var request = new TurnstileValidationRequest
         {
             RemoteIp = remoteIp,
             Response = token,
-            Secret = _secret
+            Secret = _secret,
+            IdempotencyKey = idempotencyKey
         };
 
-        var response = await client.SendToType<TurnstileValidationResponse>(HttpMethod.Post, "https://challenges.cloudflare.com/turnstile/v0/siteverify", request, Logger, cancellationToken);
+        TurnstileValidationResponse? response = await client.SendWithRetryToType<TurnstileValidationResponse>(HttpMethod.Post, "https://challenges.cloudflare.com/turnstile/v0/siteverify", request, 2, Logger, TimeSpan.FromSeconds(1), true, cancellationToken).NoSync();
 
         return response;
     }
