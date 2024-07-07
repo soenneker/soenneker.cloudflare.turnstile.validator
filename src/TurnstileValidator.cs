@@ -41,7 +41,7 @@ public class TurnstileValidator : Validators.Validator.Validator, ITurnstileVali
     {
         var idempotencyKey = Guid.NewGuid().ToString();
 
-        HttpClient client = await _turnstileClient.Get().NoSync();
+        HttpClient client = await _turnstileClient.Get(cancellationToken).NoSync();
 
         var request = new TurnstileValidationRequest
         {
