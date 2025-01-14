@@ -44,7 +44,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
         <PackageReference Include="Soenneker.Cloudflare.Turnstile.Client" Version="3.0.852" />
-        <PackageReference Include="Soenneker.Validators.Validator" Version="3.0.494" />
+        <PackageReference Include="Soenneker.Validators.Validator" Version="3.0.497" />
     </ItemGroup>
 
     <ItemGroup>
