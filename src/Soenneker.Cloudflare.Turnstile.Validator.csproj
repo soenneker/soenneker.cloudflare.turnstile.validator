@@ -42,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Cloudflare.Turnstile.Client" Version="3.0.952" />
+        <PackageReference Include="Soenneker.Cloudflare.Turnstile.Client" Version="3.0.953" />
         <PackageReference Include="Soenneker.Extensions.Configuration" Version="3.0.617" />
         <PackageReference Include="Soenneker.Extensions.HttpClient" Version="3.0.2616" />
         <PackageReference Include="Soenneker.Validators.Validator" Version="3.0.545" />
