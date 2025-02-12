@@ -1,5 +1,4 @@
-﻿```
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Soenneker.Cloudflare.Turnstile.Client.Registrars;
 using Soenneker.Cloudflare.Turnstile.Validator.Abstract;
@@ -16,8 +15,9 @@ public static class TurnstileValidatorRegistrar
     /// </summary>
     public static IServiceCollection AddTurnstileValidatorAsSingleton(this IServiceCollection services)
     {
-        services.AddTurnstileClientAsSingleton();
-        services.TryAddSingleton<ITurnstileValidator, TurnstileValidator>();
+        services.AddTurnstileClientAsSingleton()
+                .TryAddSingleton<ITurnstileValidator, TurnstileValidator>();
+
         return services;
     }
 
@@ -26,9 +26,9 @@ public static class TurnstileValidatorRegistrar
     /// </summary>
     public static IServiceCollection AddTurnstileValidatorAsScoped(this IServiceCollection services)
     {
-        services.AddTurnstileClientAsScoped();
-        services.TryAddScoped<ITurnstileValidator, TurnstileValidator>();
+        services.AddTurnstileClientAsScoped()
+                .TryAddScoped<ITurnstileValidator, TurnstileValidator>();
+
         return services;
     }
 }
-```
