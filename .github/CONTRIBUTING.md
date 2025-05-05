@@ -1,4 +1,4 @@
-# Contributing to Soenneker.Cloudflare.Turnstile.Validator
+﻿# Contributing to Soenneker.Cloudflare.Turnstile.Validator
 
 We're excited that you're interested in contributing!
 
