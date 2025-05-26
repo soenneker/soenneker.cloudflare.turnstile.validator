@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using Soenneker.Cloudflare.Turnstile.Validator.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
