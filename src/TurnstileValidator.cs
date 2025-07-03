@@ -15,7 +15,7 @@ using Soenneker.Extensions.ValueTask;
 namespace Soenneker.Cloudflare.Turnstile.Validator;
 
 /// <inheritdoc cref="ITurnstileValidator"/>
-public class TurnstileValidator : Validators.Validator.Validator, ITurnstileValidator
+public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnstileValidator
 {
     private readonly ITurnstileClient _turnstileClient;
 
