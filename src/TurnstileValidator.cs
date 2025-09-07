@@ -29,10 +29,9 @@ public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnst
 
     public async ValueTask<bool> Validate(string token, string? remoteIp = null, CancellationToken cancellationToken = default)
     {
-        TurnstileValidationResponse? response = await GetResponse(token, remoteIp, cancellationToken)
-            .NoSync();
+        TurnstileValidationResponse? response = await GetResponse(token, remoteIp, cancellationToken).NoSync();
 
-        if (response is not {Success: true})
+        if (response is not { Success: true })
             return false;
 
         return true;
@@ -40,11 +39,9 @@ public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnst
 
     public async ValueTask<TurnstileValidationResponse?> GetResponse(string token, string? remoteIp = null, CancellationToken cancellationToken = default)
     {
-        var idempotencyKey = Guid.NewGuid()
-                                 .ToString();
+        var idempotencyKey = Guid.NewGuid().ToString();
 
-        HttpClient client = await _turnstileClient.Get(cancellationToken)
-                                                  .NoSync();
+        HttpClient client = await _turnstileClient.Get(cancellationToken).NoSync();
 
         var request = new TurnstileValidationRequest
         {
@@ -54,8 +51,7 @@ public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnst
             IdempotencyKey = idempotencyKey
         };
 
-        return await client.SendWithRetryToType<TurnstileValidationResponse>(HttpMethod.Post, "https://challenges.cloudflare.com/turnstile/v0/siteverify", request, 2, Logger, TimeSpan.FromSeconds(1),
-                               true, cancellationToken)
-                           .NoSync();
+        return await client.SendToTypeWithRetry<TurnstileValidationResponse>(HttpMethod.Post, "https://challenges.cloudflare.com/turnstile/v0/siteverify", request, 2, Logger,
+            TimeSpan.FromSeconds(1), true, cancellationToken).NoSync();
     }
 }
