@@ -15,8 +15,7 @@ public static class TurnstileValidatorRegistrar
     /// </summary>
     public static IServiceCollection AddTurnstileValidatorAsSingleton(this IServiceCollection services)
     {
-        services.AddTurnstileClientAsSingleton()
-                .TryAddSingleton<ITurnstileValidator, TurnstileValidator>();
+        services.AddTurnstileClientAsSingleton().TryAddSingleton<ITurnstileValidator, TurnstileValidator>();
 
         return services;
     }
@@ -26,8 +25,7 @@ public static class TurnstileValidatorRegistrar
     /// </summary>
     public static IServiceCollection AddTurnstileValidatorAsScoped(this IServiceCollection services)
     {
-        services.AddTurnstileClientAsScoped()
-                .TryAddScoped<ITurnstileValidator, TurnstileValidator>();
+        services.AddTurnstileClientAsScoped().TryAddScoped<ITurnstileValidator, TurnstileValidator>();
 
         return services;
     }
