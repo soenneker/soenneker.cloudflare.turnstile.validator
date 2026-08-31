@@ -14,7 +14,6 @@ using Soenneker.Extensions.ValueTask;
 
 namespace Soenneker.Cloudflare.Turnstile.Validator;
 
-/// <inheritdoc cref="ITurnstileValidator"/>
 public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnstileValidator
 {
     private readonly ITurnstileClient _turnstileClient;
@@ -31,10 +30,7 @@ public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnst
     {
         TurnstileValidationResponse? response = await GetResponse(token, remoteIp, cancellationToken).NoSync();
 
-        if (response is not { Success: true })
-            return false;
-
-        return true;
+        return response is { Success: true };
     }
 
     public async ValueTask<TurnstileValidationResponse?> GetResponse(string token, string? remoteIp = null, CancellationToken cancellationToken = default)

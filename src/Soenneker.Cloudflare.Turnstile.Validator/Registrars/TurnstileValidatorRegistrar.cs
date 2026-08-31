@@ -25,7 +25,7 @@ public static class TurnstileValidatorRegistrar
     /// </summary>
     public static IServiceCollection AddTurnstileValidatorAsScoped(this IServiceCollection services)
     {
-        services.AddTurnstileClientAsScoped().TryAddScoped<ITurnstileValidator, TurnstileValidator>();
+        services.AddTurnstileClientAsSingleton().TryAddScoped<ITurnstileValidator, TurnstileValidator>();
 
         return services;
     }

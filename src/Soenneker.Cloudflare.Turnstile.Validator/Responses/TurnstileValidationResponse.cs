@@ -31,7 +31,7 @@ public record TurnstileValidationResponse
     /// Gets or sets error codes.
     /// </summary>
     [JsonPropertyName("error-codes")]
-    public List<string> ErrorCodes { get; set; } = default!;
+    public List<string> ErrorCodes { get; set; } = [];
 
     /// <summary>
     /// Gets or sets action.
