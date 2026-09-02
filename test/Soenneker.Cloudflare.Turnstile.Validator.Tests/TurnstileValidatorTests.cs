@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using Soenneker.Cloudflare.Turnstile.Validator.Abstract;
@@ -17,9 +18,9 @@ public class TurnstileValidatorTests : HostedUnitTest
     }
 
     [Test]
-    public async Task Validate_should_validate()
+    public async Task Validate_should_validate(CancellationToken cancellationToken)
     {
-        var result = await _validator.Validate("XXXX.DUMMY.TOKEN.XXXX");
+        var result = await _validator.Validate("XXXX.DUMMY.TOKEN.XXXX", cancellationToken: cancellationToken);
         result.Should().BeTrue();
     }
 }
