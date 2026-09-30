@@ -18,7 +18,7 @@ public class TurnstileValidatorTests : HostedUnitTest
     }
 
     [Test]
-    public async Task Validate_should_validate(CancellationToken cancellationToken)
+    public async ValueTask Validate_should_validate(CancellationToken cancellationToken)
     {
         var result = await _validator.Validate("XXXX.DUMMY.TOKEN.XXXX", cancellationToken: cancellationToken);
         result.Should().BeTrue();
