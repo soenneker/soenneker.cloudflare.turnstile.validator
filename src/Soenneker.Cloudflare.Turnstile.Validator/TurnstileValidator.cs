@@ -24,7 +24,7 @@ public sealed class TurnstileValidator : Validators.Validator.Validator, ITurnst
     public TurnstileValidator(ILogger<TurnstileValidator> logger, ITurnstileClient turnstileClient, IConfiguration configuration) : base(logger)
     {
         _turnstileClient = turnstileClient;
-        _secret = configuration.GetValueStrict<string>("Cloudflare:Turnstile:Secret");
+        _secret = configuration.GetStringStrict("Cloudflare:Turnstile:Secret");
     }
 
     public async ValueTask<bool> Validate(string token, string? remoteIp = null, CancellationToken cancellationToken = default)
